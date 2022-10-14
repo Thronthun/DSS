@@ -20,7 +20,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
-    
+
 </head>
 
 <body id="page-top">
@@ -53,7 +53,8 @@
                     <p class="text-white-75 mb-5">
                         ใส่รูป
                     </p>
-                    <a class="btn btn-primary btn-xl" style="background-color: #ff26d0;" href="#recommend">Find Out More </a>
+                    <a class="btn btn-primary btn-xl" style="background-color: #ff26d0;" href="#recommend">Find Out More
+                    </a>
                 </div>
             </div>
         </div>
@@ -199,7 +200,7 @@
             </div>
         </div>
     </section>
-    <section class="page-section" >
+    <section class="page-section">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-lg-8 text-center">
@@ -243,7 +244,7 @@
         </div>
     </section>
     <!-- Contact-->
-   
+
     <section class="ftco-section" id="editing">
         <div class="container">
             <div class="row justify-content-center">
@@ -256,11 +257,13 @@
                         <label for="filter_2">30001-40000</label>
                         <input type="checkbox" name="filterStatus" value="3-4" />
                         <label for="filter_3">40001++</label>
-                        <input type="checkbox" name="filterStatus" value="Game" />
+                    </form>
+                    <form name="FilterForm2" id="FilterForm2" action="" method="">
+                        <input type="checkbox" name="filterStatus2" value="Game" />
                         <label for="filter_4">Game</label>
-                        <input type="checkbox" name="filterStatus" value="Edit" />
+                        <input type="checkbox" name="filterStatus2" value="Edit" />
                         <label for="filter_5">Edit</label>
-                      </form>
+                    </form>
                 </div>
             </div>
             <div class="row">
@@ -276,35 +279,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="1-2 Game" >
+                                <tr class="1-2 Game">
                                     <th scope="row">1</th>
                                     <td>Mark</td>
                                     <td>Otto</td>
-                                    <td >15050</td>
+                                    <td>15050</td>
                                 </tr>
                                 <tr class="1-2 Edit">
                                     <th scope="row">2</th>
                                     <td>Jacob</td>
                                     <td>Thornton</td>
-                                    <td >12400</td>
+                                    <td>12400</td>
                                 </tr>
                                 <tr class="3-4 Game">
                                     <th scope="row">3</th>
                                     <td>Larry</td>
                                     <td>the Bird</td>
-                                    <td >124200</td>
+                                    <td>124200</td>
                                 </tr>
                                 <tr class="2-3 Edit">
                                     <th scope="row">4</th>
                                     <td>John</td>
                                     <td>Doe</td>
-                                    <td >40040</td>
+                                    <td>40040</td>
                                 </tr>
-                                <tr class="3-4 Game">  
+                                <tr class="3-4 Game">
                                     <th scope="row">5</th>
                                     <td>Gary</td>
                                     <td>Bird</td>
-                                    <td >50800</td>
+                                    <td>50800</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -358,7 +361,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
     <!-- Core theme JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    
+
     <script src="js/scripts.js"></script>
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <!-- * *                               SB Forms JS                               * *-->
@@ -366,40 +369,66 @@
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     <script>
-        $("input[name='filterStatus'], select.filter").change(function() {
-  var classes = [];
-  var stateClass = ""
+        var rows;
+        var rows2;
+        $("input[name='filterStatus'], select.filter").change(function () {
+            var classes = [];
+            var stateClass = ""
 
-  $("input[name='filterStatus']").each(function() {
-    if ($(this).is(":checked")) {
-      classes.push('.' + $(this).val());
-    }
-  });
+            $("input[name='filterStatus']").each(function () {
+                if ($(this).is(":checked")) {
+                    classes.push('.' + $(this).val());
+                }
+            });
 
-  if (classes == "" && stateClass == "") {
-    // if no filters selected, show all items
-    $("#StatusTable tbody tr").show();
-  } else {
-    // otherwise, hide everything...
-    $("#StatusTable tbody tr").hide();
+            if (classes == "" && stateClass == "") {
+                // if no filters selected, show all items
+                $("#StatusTable tbody tr").show();
+            } else {
+                // otherwise, hide everything...
+                $("#StatusTable tbody tr").hide();
 
-    // then show only the matching items
-    rows = $("#StatusTable tr" + stateClass).filter(classes.length ? classes.join(',') : '*');
-    edits = $("#StatusTable tr" + stateClass).filter('.Edit');
-    games = $("#StatusTable tr" + stateClass).filter('.Game');
 
-    if (rows.size() > 0) {
-      rows.show();
-      if(classes.includes('.Game')){
-            edits.hide();            
+                // then show only the matching items
+                rows = $("#StatusTable tr" + stateClass).filter(classes.length ? classes.join(',') : '*');
+
+                if (rows != undefined && rows.size() > 0) {
+                    rows.show();
+
+                    if (rows2 != undefined && rows2.size() > 0){
+                        rows2.hide();
+                    }
+
+                }
+            }
+        });
+        $("input[name='filterStatus2'], select.filter").change(function () {
+            classes2 = "";
+            stateClass2 = "";
+            $("input[name='filterStatus2']").each(function () {
+                if ($(this).is(":checked")) {
+                    classes2 = $(this).val() == "Game" ? "Edit" : "Game";
+                }
+            });
+
+            rows2 = $("#StatusTable tr").filter(classes2 == "" ? "*" : ("." + classes2));
+
+            if (classes2 == "" && stateClass2 == "") {
+                // if no filters selected, show all items
+                rows.show();
+                rows2 = [];
+            } else {
+                // otherwise, hide everything...
+                // $("#StatusTable tbody tr").hide();
+
+                if (rows2 != undefined && rows2.size() > 0) {
+                    rows2.hide();
+                }
+
+            }
         }
-        if(classes.includes('.Edit')){
-            games.hide();            
-        }
-    }
-  }
-  
-});
+        )
     </script>
 </body>
+
 </html>
