@@ -251,17 +251,17 @@
                 <div class="col-md-6 text-center mb-5">
                     <h2 class="heading-section">Table #01</h2>
                     <form name="FilterForm" id="FilterForm" action="" method="">
-                        <input type="checkbox" name="filterStatus" value="1-2 " />
+                        <input type="checkbox" name="filterStatus" id="filterNaja" value="1-2 " />
                         <label for="filter_1">10000-30000</label>
-                        <input type="checkbox" name="filterStatus" value="2-3" />
+                        <input type="checkbox" name="filterStatus" id="filterNaja" value="2-3" />
                         <label for="filter_2">30001-40000</label>
-                        <input type="checkbox" name="filterStatus" value="3-4" />
+                        <input type="checkbox" name="filterStatus" id="filterNaja" value="3-4" />
                         <label for="filter_3">40001++</label>
                     </form>
                     <form name="FilterForm2" id="FilterForm2" action="" method="">
-                        <input type="checkbox" name="filterStatus2" value="Game" />
+                        <input type="checkbox" name="filterStatus" id="filterNaja2" value="Game" />
                         <label for="filter_4">Game</label>
-                        <input type="checkbox" name="filterStatus2" value="Edit" />
+                        <input type="checkbox" name="filterStatus" id="filterNaja2" value="Edit" />
                         <label for="filter_5">Edit</label>
                     </form>
                 </div>
@@ -369,15 +369,24 @@
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     <script>
-        var rows;
-        var rows2;
+
         $("input[name='filterStatus'], select.filter").change(function () {
             var classes = [];
-            var stateClass = ""
+            var classes2 = "";
+            var stateClass = "";
+            var stateClass2 = "";
 
-            $("input[name='filterStatus']").each(function () {
+            $("input[id='filterNaja']").each(function () {
                 if ($(this).is(":checked")) {
                     classes.push('.' + $(this).val());
+                }
+            });
+
+            $("input[id='filterNaja2']").each(function () {
+                if ($(this).is(":checked")) {
+                    // classes2.push('.' + $(this).val());
+                    classes2 = $(this).val() == "Game" ? "Edit" : $(this).val() == "Edit" ? "Game" : "";
+
                 }
             });
 
@@ -391,43 +400,18 @@
 
                 // then show only the matching items
                 rows = $("#StatusTable tr" + stateClass).filter(classes.length ? classes.join(',') : '*');
-
+                rows2 = $("#StatusTable tr").filter(classes2 == "" ? "*" : ("." + classes2));
+                
                 if (rows != undefined && rows.size() > 0) {
                     rows.show();
 
-                    if (rows2 != undefined && rows2.size() > 0){
+                    if (rows2 != undefined && classes2 != "" && rows2.size() > 0) {
                         rows2.hide();
                     }
 
                 }
             }
         });
-        $("input[name='filterStatus2'], select.filter").change(function () {
-            classes2 = "";
-            stateClass2 = "";
-            $("input[name='filterStatus2']").each(function () {
-                if ($(this).is(":checked")) {
-                    classes2 = $(this).val() == "Game" ? "Edit" : "Game";
-                }
-            });
-
-            rows2 = $("#StatusTable tr").filter(classes2 == "" ? "*" : ("." + classes2));
-
-            if (classes2 == "" && stateClass2 == "") {
-                // if no filters selected, show all items
-                rows.show();
-                rows2 = [];
-            } else {
-                // otherwise, hide everything...
-                // $("#StatusTable tbody tr").hide();
-
-                if (rows2 != undefined && rows2.size() > 0) {
-                    rows2.hide();
-                }
-
-            }
-        }
-        )
     </script>
 </body>
 
