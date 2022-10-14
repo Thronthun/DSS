@@ -257,8 +257,6 @@
                         <label for="filter_2">30001-40000</label>
                         <input type="checkbox" name="filterStatus" id="filterNaja" value="3-4" />
                         <label for="filter_3">40001++</label>
-                    </form>
-                    <form name="FilterForm2" id="FilterForm2" action="" method="">
                         <input type="checkbox" name="filterStatus" id="filterNaja2" value="Game" />
                         <label for="filter_4">Game</label>
                         <input type="checkbox" name="filterStatus" id="filterNaja2" value="Edit" />
@@ -374,7 +372,6 @@
             var classes = [];
             var classes2 = "";
             var stateClass = "";
-            var stateClass2 = "";
 
             $("input[id='filterNaja']").each(function () {
                 if ($(this).is(":checked")) {
@@ -384,9 +381,7 @@
 
             $("input[id='filterNaja2']").each(function () {
                 if ($(this).is(":checked")) {
-                    // classes2.push('.' + $(this).val());
                     classes2 = $(this).val() == "Game" ? "Edit" : $(this).val() == "Edit" ? "Game" : "";
-
                 }
             });
 
@@ -400,16 +395,16 @@
 
                 // then show only the matching items
                 rows = $("#StatusTable tr" + stateClass).filter(classes.length ? classes.join(',') : '*');
-                rows2 = $("#StatusTable tr").filter(classes2 == "" ? "*" : ("." + classes2));
                 
                 if (rows != undefined && rows.size() > 0) {
                     rows.show();
-
-                    if (rows2 != undefined && classes2 != "" && rows2.size() > 0) {
-                        rows2.hide();
-                    }
-
                 }
+            }
+            
+            if(classes2 != ""){
+                rows2 = $("#StatusTable tr").filter(classes2 == "" ? "*" : ("." + classes2));
+                if (rows2.size() > 0) 
+                    rows2.hide();
             }
         });
     </script>
